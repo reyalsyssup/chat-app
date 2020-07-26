@@ -8,6 +8,8 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 let name = "";
 
+const PORT = process.env.PORT || 3000;
+
 io.on("connection", (socket) => {
     console.log("User connected!");
     socket.on("disconnect", () => {
@@ -26,4 +28,4 @@ app.get("/", (req, res) => {
     res.render("chat");
 });
 
-http.listen(process.env.PORT || 3000, () => console.log("Server listening on port 3000"));
+http.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
