@@ -24,13 +24,15 @@ function addMsg(msg, type) {
 
 // checking if you press enter in the change name area
 document.addEventListener("keydown", (event) => {
-    // 69 is keycode 'e'
+    // 69 is keycode 'e' epic funny moment
+    // 13 is enter keycode
     if(event.keyCode === 13) {
         // user is focused in the change name box
         if(document.activeElement === changeNameInput) {
-            if(changeNameInput.value !== "") {
+            if(changeNameInput.value.replace(/[\s\u2800]/g, '').length !== 0) {
                 name = changeNameInput.value;
                 localStorage.setItem("name", name);
+                addMsg(`Succesfully changed name to "${name}"`, "success");
             }
             else addMsg("Name must not be empty!", "error");
         }
