@@ -18,6 +18,7 @@ function addMsg(msg, type) {
     chatlog.appendChild(li);
     if(type === "error") li.style.backgroundColor = "#ff4f4f";
     else if(type === "warning") li.style.backgroundColor = "#ffbb3d";
+    else if(type === "success") li.style.backgroundColor = "#84ff70";
     window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -37,7 +38,10 @@ document.addEventListener("keydown", (event) => {
 });
 
 changeNameBtn.addEventListener("click", () => {
-    if(changeNameInput.value !== "") name = changeNameInput.value;
+    if(changeNameInput.value.replace(/[\s\u2800]/g, '').length !== 0) {
+        name = changeNameInput.value;
+        addMsg(`Succesfully changed name to "${name}"`, "success");
+    }
     else addMsg("Name must not be empty!", "error");
 });
 
@@ -46,7 +50,7 @@ form.addEventListener("submit", (event) => {
     if(name !== null) {
         let msg = input.value;
         // if the string is only whitespace
-        if(msg.replace(/\s/g, '').length !== 0) {
+        if(msg.replace(/[\s\u2800]/g, '').length !== 0) {
             socket.emit("send msg", `${name}: ${msg}`);
             input.value = "";
         } else addMsg("Message cannot be empty!", "warning");
