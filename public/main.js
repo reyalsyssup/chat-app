@@ -61,4 +61,6 @@ form.addEventListener("submit", (event) => {
 
 socket.on("send msg", (msg) => {
     addMsg(msg);
+    const audio = new Audio("./notif.mp3");
+    audio.play();
 });
